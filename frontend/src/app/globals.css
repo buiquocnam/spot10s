@@ -1,0 +1,75 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  
+  --color-canvas: #ffffff;
+  --color-ink: #000000;
+  --color-surface-soft: #f7f7f5;
+  
+  /* Pastel Blocks */
+  --color-block-lime: #dceeb1;
+  --color-block-lilac: #c5b0f4;
+  --color-block-cream: #f4ecd6;
+  --color-block-pink: #efd4d4;
+  --color-block-mint: #c8e6cd;
+  --color-block-coral: #f3c9b6;
+  --color-block-navy: #1f1d3d;
+
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --radius-pill: 50px;
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #000000;
+  --primary: #000000;
+  --primary-foreground: #ffffff;
+  --radius: 24px;
+  
+  /* Shadcn standard vars adjustment */
+  --card: #ffffff;
+  --card-foreground: #000000;
+  --popover: #ffffff;
+  --popover-foreground: #000000;
+  --secondary: #f7f7f5;
+  --secondary-foreground: #000000;
+  --muted: #f7f7f5;
+  --muted-foreground: #666666;
+  --accent: #f7f7f5;
+  --accent-foreground: #000000;
+  --border: #e6e6e6;
+  --input: #e6e6e6;
+  --ring: #000000;
+}
+
+@layer base {
+  * {
+    @apply border-ink/10;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+}
+
+/* Custom Utilities */
+@layer components {
+  .btn-pill {
+    @apply rounded-full px-6 py-2 font-medium transition-transform active:scale-95;
+  }
+  
+  .block-section {
+    @apply rounded-lg p-12 transition-all;
+  }
+}
