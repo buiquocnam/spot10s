@@ -4,25 +4,31 @@ import Header from "./Header";
 import ViewToggle from "./ViewToggle";
 import MapView from "./MapView";
 import PlaceSidePanel from "./PlaceSidePanel";
+import DiscoveryToolbar from "./DiscoveryToolbar";
 import PlaceCard from "./PlaceCard";
 import { useAppStore } from "@/store/useAppStore";
 import { useNearbyPlaces } from "../hooks/usePlaces";
 import { AnimatePresence, motion } from "framer-motion";
 
 export default function DiscoveryView() {
-  const { viewMode, location } = useAppStore();
+  const { viewMode, location, category, searchQuery, radius, minRating } = useAppStore();
   
-  // Mặc định lấy Đà Nẵng nếu chưa có GPS
+  // Lấy danh sách quán từ server kèm lọc
   const { data: places, isLoading } = useNearbyPlaces(
     location.lat || 16.0544, 
-    location.lng || 108.2022
+    location.lng || 108.2022,
+    category,
+    searchQuery,
+    radius,
+    minRating
   );
 
   return (
-    <main className="relative flex min-h-screen flex-col bg-canvas">
+    <div className="flex h-screen w-full flex-col overflow-hidden bg-canvas">
       <Header />
+      <DiscoveryToolbar />
       
-      <div className="flex-1 overflow-hidden relative">
+      <main className="relative flex-1 overflow-hidden">
         <AnimatePresence mode="wait">
           {viewMode === "list" ? (
             <motion.div
@@ -50,7 +56,7 @@ export default function DiscoveryView() {
                     <PlaceCard 
                       key={place.id} 
                       {...place} 
-                      distance={Math.round(place.distance / 80) + "p"}
+                      distance={Math.round(place.distance) + "m"}
                     />
                   ))
                 )}
@@ -70,9 +76,9 @@ export default function DiscoveryView() {
             </motion.div>
           )}
         </AnimatePresence>
-      </div>
+      </main>
 
       <ViewToggle />
-    </main>
+    </div>
   );
 }

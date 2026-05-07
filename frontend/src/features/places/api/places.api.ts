@@ -1,9 +1,16 @@
 import apiClient from "@/lib/axios";
 
 export const placesApi = {
-  getNearby: async (lat: number, lng: number) => {
+  getNearby: async (lat: number, lng: number, category?: string, search?: string, radius?: number | null, minRating?: number) => {
     const { data } = await apiClient.get("/places/nearby", {
-      params: { lat, lng },
+      params: { 
+        lat, 
+        lng, 
+        category: category === 'all' ? undefined : category, 
+        search,
+        radius: radius || undefined,
+        minRating: minRating || undefined
+      },
     });
     return data.data;
   },

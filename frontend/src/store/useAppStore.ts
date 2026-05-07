@@ -10,6 +10,14 @@ interface LocationState {
 interface AppState {
   viewMode: "list" | "map";
   location: LocationState;
+  searchQuery: string;
+  setSearchQuery: (query: string) => void;
+  category: string;
+  setCategory: (category: string) => void;
+  radius: number | null;
+  setRadius: (radius: number | null) => void;
+  minRating: number;
+  setMinRating: (rating: number) => void;
   selectedPlaceId: string | null;
   
   // Actions
@@ -27,9 +35,17 @@ export const useAppStore = create<AppState>()(
         lng: null,
         address: null,
       },
+      category: "all",
+      searchQuery: "",
+      radius: null,
+      minRating: 0,
       selectedPlaceId: null,
       setViewMode: (mode) => set({ viewMode: mode }),
       setLocation: (location) => set({ location }),
+      setCategory: (category) => set({ category }),
+      setSearchQuery: (query) => set({ searchQuery: query }),
+      setRadius: (radius) => set({ radius }),
+      setMinRating: (rating) => set({ minRating: rating }),
       setSelectedPlaceId: (id) => set({ selectedPlaceId: id }),
     }),
     {

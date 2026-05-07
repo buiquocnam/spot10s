@@ -56,12 +56,17 @@ export const placesHandler = {
       
       const lat = typeof latStr === 'string' ? parseFloat(latStr) : NaN;
       const lng = typeof lngStr === 'string' ? parseFloat(lngStr) : NaN;
+      const category = typeof req.query.category === 'string' ? req.query.category : undefined;
+      const search = typeof req.query.search === 'string' ? req.query.search : undefined;
+
+      const radius = typeof req.query.radius === 'string' ? parseFloat(req.query.radius) : undefined;
+      const minRating = typeof req.query.minRating === 'string' ? parseFloat(req.query.minRating) : undefined;
 
       if (isNaN(lat) || isNaN(lng)) {
         return sendResponse.error(res, "Thiếu tọa độ lat/lng hợp lệ", null, 400);
       }
 
-      const places = await placesService.getNearbyPlaces(lat, lng);
+      const places = await placesService.getNearbyPlaces(lat, lng, 20, category, search, radius, minRating);
       sendResponse.success(res, places);
     } catch (error) {
       console.error("Error in getNearby:", error);

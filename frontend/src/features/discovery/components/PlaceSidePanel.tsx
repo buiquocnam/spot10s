@@ -103,16 +103,9 @@ export default function PlaceSidePanel() {
               </div>
 
               {place.distance !== undefined && (
-                <div className="mt-2 p-4 rounded-2xl bg-block-lime/30 border border-block-lime/50 flex items-center justify-between">
-                  <div className="flex flex-col">
-                    <span className="text-[10px] font-bold uppercase tracking-widest text-ink/40">Khoảng cách</span>
-                    <p className="text-lg font-bold text-ink">{Math.round(place.distance)}m</p>
-                  </div>
-                  <div className="h-10 w-[1px] bg-ink/10" />
-                  <div className="flex flex-col text-right">
-                    <span className="text-[10px] font-bold uppercase tracking-widest text-ink/40">Đi bộ khoảng</span>
-                    <p className="text-lg font-bold text-ink">{Math.ceil(place.distance / 80)} phút</p>
-                  </div>
+                <div className="mt-2 p-4 rounded-2xl bg-block-lime/30 border border-block-lime/50 flex flex-col items-center justify-center text-center">
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-ink/40">Khoảng cách từ bạn</span>
+                  <p className="text-2xl font-black text-ink">{Math.round(place.distance)}m</p>
                 </div>
               )}
             </div>

@@ -40,12 +40,40 @@ export const placesService = {
     };
   },
 
-  // Lấy danh sách quán kèm tính khoảng cách bằng PostGIS
-  async getNearbyPlaces(userLat: number, userLng: number, limit = 20) {
+  // Lấy danh sách quán kèm tính khoảng cách bằng PostGIS và lọc
+  async getNearbyPlaces(
+    userLat: number, 
+    userLng: number, 
+    limit = 20, 
+    category?: string, 
+    search?: string,
+    radius?: number, // in meters
+    minRating?: number
+  ) {
     const distanceSql = sql<number>`ST_DistanceSphere(
       location, 
       ST_GeomFromText(${`POINT(${userLng} ${userLat})`}, 4326)
     )`;
+
+    let conditions = [eq(places.status, "published")];
+
+    if (category && category !== 'all') {
+      // Vì tags là mảng text[] trong Postgres
+      conditions.push(sql`${places.tags} @> ARRAY[${category}]::text[]`);
+    }
+
+    if (search) {
+      const searchPattern = `%${search.toLowerCase()}%`;
+      conditions.push(sql`LOWER(${places.name}) LIKE ${searchPattern}`);
+    }
+
+    if (radius) {
+      conditions.push(sql`${distanceSql} <= ${radius}`);
+    }
+
+    if (minRating) {
+      conditions.push(sql`${places.rating} >= ${minRating}`);
+    }
 
     return await db
       .select({
@@ -63,7 +91,7 @@ export const placesService = {
         distance: distanceSql,
       })
       .from(places)
-      .where(eq(places.status, "published"))
+      .where(and(...conditions))
       .orderBy(distanceSql)
       .limit(limit);
   },

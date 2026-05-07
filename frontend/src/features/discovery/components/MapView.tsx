@@ -4,7 +4,15 @@ import Map, { NavigationControl, Marker } from "react-map-gl/maplibre";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { useAppStore } from "@/store/useAppStore";
 import { useEffect, useState } from "react";
-import { Coffee } from "lucide-react";
+import { Coffee, Utensils, Heart, Briefcase } from "lucide-react";
+
+const getPlaceIcon = (tags: string[]) => {
+  if (tags.includes('cafe')) return <Coffee size={18} />;
+  if (tags.includes('food')) return <Utensils size={18} />;
+  if (tags.includes('date')) return <Heart size={18} />;
+  if (tags.includes('work')) return <Briefcase size={18} />;
+  return <Coffee size={18} />; // Default
+};
 
 // KHÔNG CẦN TOKEN NỮA
 // Dùng style miễn phí từ CartoDB (rất đẹp và chuyên nghiệp)
@@ -55,7 +63,9 @@ export default function MapView({ places }: { places?: any[] }) {
                   isSelected ? "border-primary scale-125 z-50 ring-4 ring-primary/20" : "border-ink"
                 }`}
               >
-                <Coffee size={18} className={isSelected ? "text-primary" : "text-ink"} />
+                <div className={isSelected ? "text-primary" : "text-ink"}>
+                  {getPlaceIcon(place.tags || [])}
+                </div>
                 <div className={`absolute -top-10 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-lg px-2 py-1 text-[10px] font-bold shadow-md transition-all ${
                   isSelected ? "bg-primary text-white scale-110" : "bg-ink/90 backdrop-blur-sm text-canvas"
                 }`}>

@@ -5,8 +5,8 @@ import { AuthProvider } from "@/providers/AuthProvider";
 import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
-  title: "Cafe 10s - Tìm quán cà phê Đà Nẵng cực nhanh",
-  description: "Khám phá không gian làm việc và chill tại Đà Nẵng chỉ trong 10 giây.",
+  title: "Spot 10S - Khám phá điểm đến 10 giây",
+  description: "Tìm kiếm quán cà phê, quán ăn và địa điểm hẹn hò lý tưởng chỉ trong 10 giây.",
 };
 
 import { LocationGate } from "@/features/discovery/components/LocationGate";

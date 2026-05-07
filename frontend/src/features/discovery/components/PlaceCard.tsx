@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Star } from "lucide-react";
+import { Star, MapPin } from "lucide-react";
 import Link from "next/link";
 
 interface PlaceCardProps {
@@ -54,10 +54,8 @@ export default function PlaceCard({ id, name, address, rating, distance, images,
         <p className="text-sm text-ink/60 line-clamp-1">{address}</p>
         
         <div className="mt-1 flex items-center gap-1.5 text-xs font-bold text-ink">
-          <div className="flex h-5 w-5 items-center justify-center rounded-full bg-ink text-canvas">
-            <Walk size={12} />
-          </div>
-          {distance} đi bộ
+          <MapPin size={12} className="text-ink/40" />
+          {distance}
         </div>
       </div>
     </motion.div>
@@ -65,12 +63,4 @@ export default function PlaceCard({ id, name, address, rating, distance, images,
   );
 }
 
-// Icon Walk placeholder since Lucide might not have it exactly
-function Walk({ size }: { size: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-      <path d="m9 20 3-3 3 3M12 17V11M12 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"/>
-      <path d="M17 11c-1 0-2-1-2-2v-.5c0-1.4 1.1-2.5 2.5-2.5S20 7.1 20 8.5V11h-3Z"/>
-    </svg>
-  );
-}
+

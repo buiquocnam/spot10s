@@ -8,7 +8,7 @@
     "dev": "tsx watch src/index.ts",
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio",
-    "seed": "tsx src/scripts/seed.ts",
+    "seed": "tsx src/scripts/seed-admin.ts",
     "seed:places": "tsx src/scripts/seed-places.ts",
     "seed:admin": "tsx src/scripts/seed-admin.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
